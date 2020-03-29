@@ -40,6 +40,10 @@ const Article = styled.article`
     img {
       width: 100%;
     }
+    code,
+    code * {
+      color: #fff;
+    }
   }
 
   .tags {

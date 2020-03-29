@@ -16,6 +16,10 @@ const StyledWrapper = styled.div`
     fill: currentColor;
     overflow: hidden;
   }
+`
+
+const Main = styled.main`
+  min-height: 70vh;
 
   .fixed-sidebar {
     position: fixed;
@@ -23,11 +27,16 @@ const StyledWrapper = styled.div`
     left: 50%;
     margin-left: 205px;
     width: 320px;
-  }
-`
 
-const Main = styled.main`
-  min-height: 70vh;
+    @media (max-width: 768px) {
+      padding-top: 48px;
+      position: static;
+      left: 0;
+      width: 100%;
+      margin-left: 0;
+      top: 0;
+    }
+  }
 `
 
 export const Layout = ({
@@ -48,14 +57,14 @@ export const Layout = ({
       <TopBar />
       <Main className='container'>
         <div className='row'>
-          <div className={cx(sidebarShow ? 'col-md-8' : 'col-12')}>
+          <div className={cx(sidebarShow ? 'col-md-8' : 'col-12', 'col-xs-12')}>
             <div className='pt-5'>
               {/* <MainMenu /> */}
               { children }
             </div>
           </div>
           {
-            sidebarShow && <div className='col-md-4'>
+            sidebarShow && <div className='col-md-4 col-xs-12'>
               <div className='fixed-sidebar'>
                 { sidebarContent }
                 {/* <MyInfoCard /> */}
