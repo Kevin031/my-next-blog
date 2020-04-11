@@ -38,9 +38,12 @@ const ColumnCard = styled(Card)`
       text-decoration: none;
     }
   }
+  .releases {
+    padding: 15px;
+  }
 `
 
-const Home = inject('columnStore')(({ columnStore }) => {
+const Home = inject('columnStore', 'appStore')(({ columnStore, appStore }) => {
   return <Layout>
     <Head>
       <title>KEVINLAUA</title>
@@ -71,12 +74,23 @@ const Home = inject('columnStore')(({ columnStore }) => {
           }
         </div>
       </section>
+      <section>
+        <div className="row">
+          <div className="col-md-6">
+            <h6 className='section-title'>更新日志</h6>
+            <ColumnCard>
+              <div className="releases" dangerouslySetInnerHTML={{ __html: appStore.releases }} />
+            </ColumnCard>
+          </div>
+        </div>
+      </section>
     </Wrapper>
   </Layout>
 })
 
 Home.getInitialProps = async ({ query, mobxStore }) => {
-  if (typeof window === 'undefined' || mobxStore.columnStore.list) {
+  await mobxStore.appStore.init()
+  if (typeof window === 'undefined' || mobxStore.cocllumnStore.list) {
     await Promise.all([
       mobxStore.columnStore.fetch(),
       mobxStore.tagStore.fetch()

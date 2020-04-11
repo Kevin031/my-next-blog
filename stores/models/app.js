@@ -2,9 +2,14 @@ import { types } from 'mobx-state-tree'
 
 export const AppStore = types.model('AppStore')
   .props({
-    renderTime: types.maybeNull(types.number)
+    renderTime: types.maybeNull(types.number),
+    releases: types.maybeNull(types.string)
   })
   .actions(self => ({
+    init () {
+      const releases = require('../../releases.md')
+      self.releases = releases
+    },
     setRenderTime (val) {
       self.renderTime = val
     }
