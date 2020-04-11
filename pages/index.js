@@ -90,7 +90,7 @@ const Home = inject('columnStore', 'appStore')(({ columnStore, appStore }) => {
 
 Home.getInitialProps = async ({ query, mobxStore }) => {
   await mobxStore.appStore.init()
-  if (typeof window === 'undefined' || mobxStore.cocllumnStore.list) {
+  if (typeof window === 'undefined' || mobxStore.columnStore.list) {
     await Promise.all([
       mobxStore.columnStore.fetch(),
       mobxStore.tagStore.fetch()
