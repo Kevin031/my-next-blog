@@ -39,6 +39,7 @@ const Article = styled.article`
     }
     img {
       width: 100%;
+      display: none;
     }
     code,
     code * {
