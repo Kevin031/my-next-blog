@@ -443,6 +443,10 @@ const Article = styled(Card)`
     code {
       word-wrap: break-word;
     }
+    .hljs {
+      padding: 1.5em;
+      border-radius: .5em;
+    }
   }
 `
 

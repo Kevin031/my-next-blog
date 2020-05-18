@@ -43,7 +43,8 @@ const Article = styled.article`
     }
     code,
     code * {
-      color: #fff;
+      /* color: #fff; */
+      /* color: #e83e8c; */
     }
   }
 
