@@ -44,6 +44,21 @@ const ColumnCard = styled(Card)`
 `
 
 const Home = inject('columnStore', 'appStore')(({ columnStore, appStore }) => {
+
+  const getLink = column => {
+    if (column.field_key === 'photo') {
+      return {
+        as: `/photos/${column.id}`,
+        href: `/photos?id=${column.id}`
+      }
+    }
+
+    return {
+      as: `/posts/${column.id}`,
+      href: `/posts?id=${column.id}`
+    }
+  }
+
   return <Layout>
     <Head>
       <title>KEVINLAUA</title>
@@ -60,7 +75,7 @@ const Home = inject('columnStore', 'appStore')(({ columnStore, appStore }) => {
             columnStore.rootList.map(column => (
               <div className='col-md-4' key={column.id}>
                 <ColumnCard>
-                  <Link href={`/posts?id=${column.id}`} as={`/posts/${column.id}`}>
+                  <Link href={getLink(column).href} as={getLink(column).as}>
                     <a>
                       <div className='icon'>
                         <IconFont type={column.field_key} />

@@ -17,7 +17,9 @@ app.prepare()
         app.render(req, res, '/posts', Object.assign(route('/posts/:id')(pathname), query))
       } else if (route('/post/:id')(pathname)) {
         app.render(req, res, '/post', Object.assign(route('/post/:id')(pathname), query))
-      } else {
+      } else if (route('/photos/:id')(pathname)) {
+        app.render(req, res, '/photos/:id', Object.assign(route('/photos/:id')(pathname), query))
+      }  else {
         handle(req, res)
       }
       // assigning `query` into the params means that we still

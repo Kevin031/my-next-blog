@@ -52,7 +52,7 @@ export const Layout = ({
         <link type='image/x-icon' rel="shortcut icon" href="/static/favicon.ico" />
         <link key='bootstrap' rel='stylesheet' href='https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap.min.css'></link>
         <link key='highlight-code' rel='stylesheet' href='/static/highlight-code.css'></link>
-        <script src='http://at.alicdn.com/t/font_1495582_l867hg8mba.js'></script>
+        <script src='//at.alicdn.com/t/font_1495582_bup97vndu3n.js'></script>
       </Head>
       <TopBar />
       <Main className='container'>

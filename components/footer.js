@@ -12,6 +12,9 @@ const Wrapper = styled.footer`
     text-align: center;
     margin-bottom: 10px;
   }
+  a {
+    color: ${colors.secondary};
+  }
 `
 
 export default inject('appStore')(function Footer ({ appStore }) {
@@ -21,6 +24,6 @@ export default inject('appStore')(function Footer ({ appStore }) {
   return <Wrapper>
     <p>Power by nextjs</p>
     <p>本次首屏构建耗时: {appStore.formatRenderTime}</p>
-    <p>©2017-2020 | 粤ICP备20019685号</p>
+    <p>©2017-{new Date().getFullYear()} | <a href='https://beian.miit.gov.cn/' target="_blank">粤ICP备20019685号</a></p>
   </Wrapper>
 })
