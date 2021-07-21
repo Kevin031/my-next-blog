@@ -22,7 +22,7 @@ export default inject('appStore')(function Footer ({ appStore }) {
     appStore.setRenderTime(Date.now() - getRequestTime())
   }
   return <Wrapper>
-    <p>Power by nextjs</p>
+    <p>Power by nextjs <a style={{ textDecoration: 'underline' }} target="_blank" href="https://github.com/Kevin031/my-next-blog">源码:github</a></p>
     <p>本次首屏构建耗时: {appStore.formatRenderTime}</p>
     <p>©2017-{new Date().getFullYear()} | <a href='https://beian.miit.gov.cn/' target="_blank">粤ICP备20019685号</a></p>
   </Wrapper>

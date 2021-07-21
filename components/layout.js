@@ -52,13 +52,13 @@ export const Layout = ({
         <link type='image/x-icon' rel="shortcut icon" href="/static/favicon.ico" />
         <link key='bootstrap' rel='stylesheet' href='https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap.min.css'></link>
         <link key='highlight-code' rel='stylesheet' href='/static/highlight-code.css'></link>
-        <script src='//at.alicdn.com/t/font_1495582_bup97vndu3n.js'></script>
+        <script src='//at.alicdn.com/t/font_1495582_ywlthdj7u4a.js'></script>
       </Head>
       <TopBar />
       <Main className='container'>
         <div className='row'>
           <div className={cx(sidebarShow ? 'col-md-8' : 'col-12', 'col-xs-12')}>
-            <div className='pt-5'>
+            <div className='pt-5 pb-5'>
               {/* <MainMenu /> */}
               { children }
             </div>

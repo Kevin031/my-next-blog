@@ -18,7 +18,7 @@ app.prepare()
       } else if (route('/post/:id')(pathname)) {
         app.render(req, res, '/post', Object.assign(route('/post/:id')(pathname), query))
       } else if (route('/photos/:id')(pathname)) {
-        app.render(req, res, '/photos/:id', Object.assign(route('/photos/:id')(pathname), query))
+        app.render(req, res, '/photos', Object.assign(route('/photos/:id')(pathname), query))
       }  else {
         handle(req, res)
       }

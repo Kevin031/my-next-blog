@@ -28,3 +28,24 @@ You can check out [the Next.js GitHub repository](https://github.com/zeit/next.j
 The easiest way to deploy your Next.js app is to use the [ZEIT Now Platform](https://zeit.co/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## release
+
+##### 2021-06-22
+
+新增摄影栏目
+
+##### 2021-01-12
+
+1. 网站部分图标更改，名称更改
+2. 备案号链接到工信部首页
+
+##### 2020-05-18
+
+1. 修复了首页code显示成白色的问题
+2. post页的代码主题更换为``Dracula``
+
+##### 2020-04-11
+
+1. 增加了「更新日志」版块
+2. 修复了所有栏目文章数量异常的bug
