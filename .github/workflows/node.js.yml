@@ -23,8 +23,8 @@ jobs:
 
     # 安装依赖
     - name: install
-    - run: yarn
+    run: yarn
     
     # 打包
     - name: build
-    - run: npm run build
+    run: npm run build
