@@ -39,6 +39,7 @@ jobs:
           privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
           debug: true
           command: |
+            docker ps -a
             docker rm -f kevinlau-cn
             docker pull kevin031/blog-nextjs
             docker run --name kevinlau-cn --restart unless-stopped -p 20350:3000 -d kevin031/blog-nextjs
