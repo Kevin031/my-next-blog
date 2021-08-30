@@ -37,6 +37,7 @@ jobs:
         with:
           hosts: '122.51.210.138'
           privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+          debug: true
           command: |
             docker rm -f kevinlau.cn
             docker pull kevin031/blog-nextjs
