@@ -4622,6 +4622,11 @@ react-highlight@^0.12.0:
   dependencies:
     highlight.js "^9.11.0"
 
+react-image-animated-previewer@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/react-image-animated-previewer/-/react-image-animated-previewer-1.0.2.tgz#b266c2e4cd728e3f2b3f9b6665ddc397c1d0a1ef"
+  integrity sha512-YV1Thr/tpQNPKLDmJxAxGs404eYDFTrgwo7cRbyVjqyLCDINPIr1ksYgzkedwDqfln4YtwvCTXcSZepGA/0bBw==
+
 react-is@16.8.6:
   version "16.8.6"
   resolved "https://registry.npm.taobao.org/react-is/download/react-is-16.8.6.tgz?cache=0&sync_timestamp=1584647638005&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-is%2Fdownload%2Freact-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"

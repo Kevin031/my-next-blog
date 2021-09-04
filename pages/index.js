@@ -61,7 +61,7 @@ const Home = inject('columnStore', 'appStore')(({ columnStore, appStore }) => {
 
   return <Layout>
     <Head>
-      <title>KEVINLAUA</title>
+      <title>Kevin's blog</title>
     </Head>
     <Wrapper>
       <section>

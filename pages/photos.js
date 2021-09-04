@@ -5,6 +5,7 @@ import IconFont from '../components/icon-font'
 import styled from 'styled-components'
 import { Transition } from 'react-transition-group'
 import { Waypoint } from 'react-waypoint'
+import ImagePreviewer from 'react-image-animated-previewer'
 
 let _ready = false
 
@@ -18,7 +19,8 @@ const PhotosWrapper = styled.div`
   .pic-wrapper {
     cursor: pointer;
     position: relative;
-    padding-bottom: 100%;
+    /* padding-bottom: 100%; */
+    height: 300px;
     img {
       position: absolute;
       width: 100%;
@@ -108,48 +110,6 @@ const Photos = ({
   }
 
   const [showDetail, setShowDetail] = useState(false)
-  const [detailPhoto, setDetailPhoto] = useState(null)
-  const [detailPhotoStyle, setDetailPhotoStyle] = useState({...defaultDetailPhotoStyle})
-
-  const getPicPosition = (evt, detail) => {
-    const target = evt.nativeEvent.target
-    const rect = target.getBoundingClientRect()
-    const width = window.innerWidth - 40
-    const left = 20
-    const top = 20
-    setDetailPhoto(detail)
-    setDetailPhotoStyle({
-      entering: {
-        width: rect.width,
-        left: rect.left,
-        top: rect.top
-      },
-      entered: {
-        width: width,
-        left: left,
-        top: top
-      },
-      exiting: {
-        width: width,
-        left: left,
-        top: top
-      },
-      exited: {
-        width: rect.width,
-        left: rect.left,
-        top: rect.top
-      }
-    })
-    setShowDetail(true)
-  }
-
-  const closeDetailPhoto = () => {
-    setShowDetail(false)
-    setTimeout(() => {
-      // setDetailPhotoStyle({...defaultDetailPhotoStyle})
-      setDetailPhoto(null)
-    }, 300)
-  }
 
   useEffect(() => {
     if (_ready) {
@@ -164,31 +124,14 @@ const Photos = ({
         {
           photoStore.list.map((item, idx) => {
             return <div key={item.id} className="pic-item">
-              <div className="pic-wrapper" onClick={evt => getPicPosition(evt, item)}>
-                <div className="mask">
-                  <div className="like-num">
-                    <IconFont type="like" />
-                    <span>0</span>
-                  </div>
-                </div>
-                <img src={item.url} />
+              <div className="pic-wrapper">
+                <ImagePreviewer src={item.url} />
               </div>
             </div>
           })
         }
       </PhotosWrapper>
     </Waypoint>
-    <Transition in={showDetail} timeout={detailAnimateDuration}>
-      {
-        state => (
-          <FullScreenWrapper onClick={closeDetailPhoto} style={{ display: detailPhoto !== null ? 'block' : 'none', ...detailMaskStyle[state] }}>
-            <div className="image-wrapper" style={{...detailPhotoStyle[state]}}>
-              <img src={detailPhoto?.url} />
-            </div>
-          </FullScreenWrapper>
-        )
-      }
-    </Transition>
   </Layout>
 }
 
