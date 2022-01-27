@@ -3,7 +3,6 @@ import { Layout } from '../components/layout'
 import Card from '../ui/card'
 import MdContent from '../components/md-content'
 import styled from 'styled-components'
-import colors from '../ui/colors'
 
 const Article = styled(Card)`
   padding: 16px;
@@ -12,7 +11,7 @@ const Article = styled(Card)`
   }
   .create-time {
     font-size: 14px;
-    color: ${colors.secondary};
+    color: var(--color-text-secondary);
   }
   .body {
     line-height: 2;
@@ -125,9 +124,9 @@ const Article = styled(Card)`
       text-transform: none;
     }
     button,
-    html input[type="button"],
-    input[type="reset"],
-    input[type="submit"] {
+    html input[type='button'],
+    input[type='reset'],
+    input[type='submit'] {
       -webkit-appearance: button; /* 2 */
       cursor: pointer; /* 3 */
     }
@@ -143,23 +142,23 @@ const Article = styled(Card)`
     input {
       line-height: normal;
     }
-    input[type="checkbox"],
-    input[type="radio"] {
+    input[type='checkbox'],
+    input[type='radio'] {
       box-sizing: border-box; /* 1 */
       padding: 0; /* 2 */
     }
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
+    input[type='number']::-webkit-inner-spin-button,
+    input[type='number']::-webkit-outer-spin-button {
       height: auto;
     }
-    input[type="search"] {
+    input[type='search'] {
       -webkit-appearance: textfield; /* 1 */
       -moz-box-sizing: content-box;
       -webkit-box-sizing: content-box; /* 2 */
       box-sizing: content-box;
     }
-    input[type="search"]::-webkit-search-cancel-button,
-    input[type="search"]::-webkit-search-decoration {
+    input[type='search']::-webkit-search-cancel-button,
+    input[type='search']::-webkit-search-decoration {
       -webkit-appearance: none;
     }
     fieldset {
@@ -191,10 +190,10 @@ const Article = styled(Card)`
     }
     body {
       position: relative;
-      font-family: 'PingFang SC', "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-family: 'PingFang SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
       font-size: 14px;
       line-height: 2;
-      color: #555;
+      color: var(--color-text-secondary);
       background: #f5f7f9;
     }
     @media (max-width: 767px) {
@@ -222,7 +221,7 @@ const Article = styled(Card)`
       padding: 0;
       font-weight: bold;
       line-height: 1.5;
-      font-family: 'PingFang SC', "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-family: 'PingFang SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
     }
     h2,
     h3,
@@ -283,7 +282,7 @@ const Article = styled(Card)`
       margin: 0 0 20px 0;
     }
     a {
-      color: #555;
+      color: var(--color-text-secondary);
       text-decoration: none;
       outline: none;
       border-bottom: 1px solid #999;
@@ -308,7 +307,13 @@ const Article = styled(Card)`
       height: 3px;
       border: none;
       background-color: #ddd;
-      background-image: repeating-linear-gradient(-45deg, #fff, #fff 4px, transparent 4px, transparent 8px);
+      background-image: repeating-linear-gradient(
+        -45deg,
+        #fff,
+        #fff 4px,
+        transparent 4px,
+        transparent 8px
+      );
     }
     blockquote {
       padding: 0 15px;
@@ -316,7 +321,7 @@ const Article = styled(Card)`
       border-left: 4px solid #ddd;
     }
     blockquote cite::before {
-      content: "-";
+      content: '-';
       padding: 0 5px;
     }
     dt {
@@ -329,7 +334,7 @@ const Article = styled(Card)`
     kbd {
       border: 1px solid #ccc;
       border-radius: 0.2em;
-      box-shadow: 0.1em 0.1em 0.2em rgba(0,0,0,0.1);
+      box-shadow: 0.1em 0.1em 0.2em rgba(0, 0, 0, 0.1);
       background-color: #f9f9f9;
       font-family: inherit;
       background-image: -webkit-linear-gradient(top, #eee, #fff, #eee);
@@ -367,7 +372,7 @@ const Article = styled(Card)`
     }
     .clearfix:before,
     .clearfix:after {
-      content: " ";
+      content: ' ';
       display: table;
     }
     .clearfix:after {
@@ -414,10 +419,10 @@ const Article = styled(Card)`
       table-layout: fixed;
       word-wrap: break-all;
     }
-    table>tbody>tr:nth-of-type(odd) {
+    table > tbody > tr:nth-of-type(odd) {
       background-color: #f9f9f9;
     }
-    table>tbody>tr:hover {
+    table > tbody > tr:hover {
       background-color: #f5f5f5;
     }
     caption,
@@ -445,39 +450,36 @@ const Article = styled(Card)`
     }
     .hljs {
       padding: 1.5em;
-      border-radius: .5em;
+      border-radius: 0.5em;
     }
   }
 `
 
 const Post = ({ detail }) => {
-  return <Layout>
-    <Article>
-      <div className='head'>
-        <div className='title'>
-          <h3>{detail.title}</h3>
+  return (
+    <Layout>
+      <Article>
+        <div className="head">
+          <div className="title">
+            <h3>{detail.title}</h3>
+          </div>
+          <div className="meta">
+            <span className="create-time">发表于{detail.created}</span>
+          </div>
         </div>
-        <div className='meta'>
-          <span className='create-time'>
-            发表于{detail.created}
-          </span>
+        <div className="body">
+          <MdContent content={detail.body} />
         </div>
-      </div>
-      <div className='body'>
-        <MdContent content={detail.body} />
-      </div>
-    </Article>
-  </Layout>
+      </Article>
+    </Layout>
+  )
 }
 
 Post.getInitialProps = async ({ query, mobxStore }) => {
   const { id } = query
   const { columnStore } = mobxStore
   if (!columnStore.list.length) {
-    await Promise.all([
-      mobxStore.columnStore.fetch(),
-      mobxStore.tagStore.fetch()
-    ])
+    await Promise.all([mobxStore.columnStore.fetch(), mobxStore.tagStore.fetch()])
   }
   const detail = await mobxStore.postStore.fetchNode(id)
   return { detail, query }

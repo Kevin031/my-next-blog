@@ -3,33 +3,36 @@ import http from '../../services/http'
 import moment from 'moment'
 import { useStore } from '../hooks'
 
-const PhotoModel = types.model('Photo')
-  .props({
-    id: types.identifier,
-    nid: types.number,
-    url: types.string
-    // width: types.number,
-    // height: types.number
-  })
+const PhotoModel = types.model('Photo').props({
+  id: types.identifier,
+  nid: types.number,
+  url: types.string,
+  // width: types.number,
+  // height: types.number
+})
 
-export const PhotoStore = types.model('PhotoStore')
+export const PhotoStore = types
+  .model('PhotoStore')
   .props({
     __list: types.map(PhotoModel),
-    status: types.optional(types.union(
-      types.literal('init'),
-      types.literal('pending'),
-      types.literal('loading'),
-      types.literal('done')
-    ), 'pending'),
+    status: types.optional(
+      types.union(
+        types.literal('init'),
+        types.literal('pending'),
+        types.literal('loading'),
+        types.literal('done'),
+      ),
+      'pending',
+    ),
     page: types.optional(types.number, 0),
   })
   .actions(self => ({
-    init () {
+    init() {
       self.__list.clear()
       self.page = 0
       self.status = 'pending'
     },
-    fetch: flow(function * () {
+    fetch: flow(function* () {
       if (self.status !== 'pending') return false
       const limit = 10
       self.status = 'loading'
@@ -46,10 +49,10 @@ export const PhotoStore = types.model('PhotoStore')
         self.status = 'pending'
       }
       return true
-    })
+    }),
   }))
   .views(self => ({
-    get list () {
+    get list() {
       return Array.from(self.__list.values())
-    }
+    },
   }))

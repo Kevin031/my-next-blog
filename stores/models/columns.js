@@ -1,37 +1,41 @@
 import { types, flow, getRoot } from 'mobx-state-tree'
 import http from '../../services/http'
 
-const ColumnModel = types.model('Column')
+const ColumnModel = types
+  .model('Column')
   .props({
     id: types.identifier,
     tid: types.number,
     name: types.string,
     field_key: types.maybeNull(types.string),
-    parent: types.maybeNull(types.reference(types.late(() => ColumnModel)))
+    parent: types.maybeNull(types.reference(types.late(() => ColumnModel))),
   })
   .views(self => ({
-    get root () {
+    get root() {
       return getRoot(self)
     },
-    get children () {
+    get children() {
       return self.root.list.filter(item => item.parent && item.parent.id === self.id)
-    }
+    },
   }))
 
-export const ColumnStore = types.model('ColumnStore')
+export const ColumnStore = types
+  .model('ColumnStore')
   .props({
-    __list: types.map(ColumnModel)
+    __list: types.map(ColumnModel),
   })
   .actions(self => ({
-    fetch: flow(function * () {
+    fetch: flow(function* () {
       const list = yield http.get('/api/columns')
       list.forEach(item => {
-        self.__list.put(ColumnModel.create({
-          id: item.id,
-          tid: item.tid,
-          name: item.name,
-          field_key: item.field_key
-        }))
+        self.__list.put(
+          ColumnModel.create({
+            id: item.id,
+            tid: item.tid,
+            name: item.name,
+            field_key: item.field_key,
+          }),
+        )
       })
       list.forEach(item => {
         if (item.parent !== 'virtual') {
@@ -39,16 +43,16 @@ export const ColumnStore = types.model('ColumnStore')
           model.parent = self.getColumn(item.parent)
         }
       })
-    })
+    }),
   }))
   .views(self => ({
-    get list () {
+    get list() {
       return Array.from(self.__list.values())
     },
-    get rootList () {
+    get rootList() {
       return self.list.filter(item => !item.parent)
     },
-    getColumn (id) {
+    getColumn(id) {
       return self.__list.get(id)
-    }
+    },
   }))

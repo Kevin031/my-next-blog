@@ -10,7 +10,6 @@ import { Layout } from '../components/layout'
 import Link from 'next/link'
 import Card from '../ui/card'
 import cx from 'classnames'
-import colors from '../ui/colors'
 import IconFont from '../components/icon-font'
 import MdContent from '../components/md-content'
 
@@ -35,7 +34,7 @@ const Article = styled.article`
     *:not(pre),
     *:not(code) {
       font-size: 14px;
-      color: #262626;
+      color: var(--color-text-secondary);
     }
     img {
       width: 100%;
@@ -77,12 +76,13 @@ const ColumnArea = styled(Card)`
   .reset {
     font-size: 12px;
     font-weight: bold;
-    color: ${colors.text};
+    color: var(--color-text-main);
     &:hover {
       text-decoration: none;
     }
   }
-  ul, li {
+  ul,
+  li {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -107,18 +107,19 @@ const ColumnArea = styled(Card)`
 const TagArea = styled(Card)`
   padding: 16px;
   .title {
-    color: ${colors.secondary};
+    color: var(--color-text-secondary);
     margin-bottom: 16px;
   }
   .reset {
     font-size: 12px;
     font-weight: bold;
-    color: ${colors.text};
+    color: var(--color-text-main);
     &:hover {
       text-decoration: none;
     }
   }
-  ul, li {
+  ul,
+  li {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -135,17 +136,17 @@ const TagArea = styled(Card)`
       font-size: 12px;
       color: inherit;
       padding: 0px 12px;
-      background-color: #f2f2f2;
+      background-color: var(--color-bg-tag);
       line-height: 24px;
       margin-bottom: 10px;
       border-radius: 12px;
       &:hover {
         text-decoration: none;
-        background-color: #f0f0f0;
+        background-color: var(--color-bg-tag-hover);
       }
       &.active {
         color: #fff;
-        background-color: ${colors.highlight};
+        background-color: var(--color-text-highlight);
       }
     }
   }
@@ -158,7 +159,7 @@ const EmptyPlaceholder = styled(Card)`
   .icon {
     font-size: 30px;
     border-radius: 50%;
-    border: solid 1px ${colors.text};
+    border: solid 1px var(--color-text-main);
     width: 50px;
     height: 50px;
     line-height: 45px;
@@ -172,15 +173,11 @@ const EmptyPlaceholder = styled(Card)`
 
 let _ready = false
 
-const Posts = ({
-  postStore,
-  columnStore,
-  tagStore,
-  tags,
-  baseLink,
-  params
-}) => {
-  const columns = columnStore.list.filter(item => item.parent && item.parent.id === params.id).map(item => item.id).concat(params.id)
+const Posts = ({ postStore, columnStore, tagStore, tags, baseLink, params }) => {
+  const columns = columnStore.list
+    .filter(item => item.parent && item.parent.id === params.id)
+    .map(item => item.id)
+    .concat(params.id)
 
   useEffect(() => {
     if (_ready) {
@@ -189,149 +186,150 @@ const Posts = ({
     _ready = true
   }, [params.id])
 
-  const _renderPost = (item) => {
-    return <Card key={item.id}>
-      <Article>
-        <div className='header'>
-          <h6 className='title'>
-            <Link href={`/post?id=${item.id}`} as={`/post/${item.id}`}>
-              <a>{item.title}</a>
-            </Link>
-          </h6>
-        </div>
-        <div className='body'>
-          <MdContent content={item.abstract} />
-        </div>
-        <div className='tags'>
-          {
-            item.tags.map(tag => (
+  const _renderPost = item => {
+    return (
+      <Card key={item.id}>
+        <Article>
+          <div className="header">
+            <h6 className="title">
+              <Link href={`/post?id=${item.id}`} as={`/post/${item.id}`}>
+                <a>{item.title}</a>
+              </Link>
+            </h6>
+          </div>
+          <div className="body">
+            <MdContent content={item.abstract} />
+          </div>
+          <div className="tags">
+            {item.tags.map(tag => (
               <Link key={tag.id} href={_makeTagLink(tag).href} as={_makeTagLink(tag).as}>
                 <a>{tag.name}</a>
               </Link>
-            ))
-          }
-        </div>
-        <div className='meta'>
-          <span className='create-time'>{item.formattedCreatedTime}</span>
-        </div>
-      </Article>
-    </Card>
+            ))}
+          </div>
+          <div className="meta">
+            <span className="create-time">{item.formattedCreatedTime}</span>
+          </div>
+        </Article>
+      </Card>
+    )
   }
 
   const _renderPendingCard = () => {
-    return <Waypoint onEnter={() => postStore.fetch({ columns })}>
-      <div>
-        <Card>
-          <Article>
-            <div className='header'>
-              <Skeleton variant='text' />
-            </div>
-            <div className='body'>
-              <Skeleton variant='rect' height={200} />
-            </div>
-            <div className='meta'>
-              <Skeleton variant='rect' height={18} width={80} />
-            </div>
-          </Article>
-        </Card>
-      </div>
-    </Waypoint>
+    return (
+      <Waypoint onEnter={() => postStore.fetch({ columns })}>
+        <div>
+          <Card>
+            <Article>
+              <div className="header">
+                <Skeleton variant="text" />
+              </div>
+              <div className="body">
+                <Skeleton variant="rect" height={200} />
+              </div>
+              <div className="meta">
+                <Skeleton variant="rect" height={18} width={80} />
+              </div>
+            </Article>
+          </Card>
+        </div>
+      </Waypoint>
+    )
   }
 
   const _makeTagLink = ({ tid }) => {
     const { id, ...others } = params
     const queryStr = http.buildQuery({
       ...others,
-      tags: (tags.includes(tid) ? tags.filter(id => id !== tid) : tags.concat(tid)).join('-')
+      tags: (tags.includes(tid) ? tags.filter(id => id !== tid) : tags.concat(tid)).join('-'),
     })
     return {
       href: `${baseLink.href}&${queryStr}`,
-      as: `${baseLink.as}?${queryStr}`
+      as: `${baseLink.as}?${queryStr}`,
     }
   }
 
   const _renderSidebar = () => {
     const columnList = params.id ? columnStore.getColumn(params.id).children : columnStore.rootList
-    return <div>
-      <ColumnArea className='columns'>
-        <div className='title d-flex align-items-end justify-content-between'>
-          <h6 className='mb-0'>专栏</h6>
-          <Link href='/posts'>
-            <a className='reset'>查看全部</a>
-          </Link>
-        </div>
-        <ul>
-          {
-            columnList.map(item => (
+    return (
+      <div>
+        <ColumnArea className="columns">
+          <div className="title d-flex align-items-end justify-content-between">
+            <h6 className="mb-0">专栏</h6>
+            <Link href="/posts">
+              <a className="reset">查看全部</a>
+            </Link>
+          </div>
+          <ul>
+            {columnList.map(item => (
               <li key={item.id}>
                 <Link href={`/posts?id=${item.id}`} as={`/posts/${item.id}`}>
-                  <a className={cx({ 'active': item.id === params.id })}>
+                  <a className={cx({ active: item.id === params.id })}>
                     <IconFont type={item.field_key} />
                     <span>{item.name}</span>
                   </a>
                 </Link>
               </li>
-            ))
-          }
-        </ul>
-      </ColumnArea>
-      <TagArea className='tags'>
-        <div className='title d-flex align-items-end justify-content-between'>
-          <h6 className='mb-0'>标签</h6>
-          <Link href={baseLink.href} as={baseLink.as}>
-            <a className='reset'>重置</a>
-          </Link>
-        </div>
-        <ul>
-          {
-            tagStore.list.map(item => (
+            ))}
+          </ul>
+        </ColumnArea>
+        <TagArea className="tags">
+          <div className="title d-flex align-items-end justify-content-between">
+            <h6 className="mb-0">标签</h6>
+            <Link href={baseLink.href} as={baseLink.as}>
+              <a className="reset">重置</a>
+            </Link>
+          </div>
+          <ul>
+            {tagStore.list.map(item => (
               <li key={item.id}>
                 <Link href={_makeTagLink(item).href} as={_makeTagLink(item).as}>
-                  <a className={cx({ 'active': tags.includes(item.tid) })}>{item.name}</a>
+                  <a className={cx({ active: tags.includes(item.tid) })}>{item.name}</a>
                 </Link>
               </li>
-            ))
-          }
-        </ul>
-      </TagArea>
-    </div>
+            ))}
+          </ul>
+        </TagArea>
+      </div>
+    )
   }
 
   const _renderEmptyPlaceholder = () => {
-    return <EmptyPlaceholder>
-      <div className='inner d-flex flex-column align-items-center'>
-        <p className='icon'>
-          <IconFont type='empty' />
-        </p>
-        <p className='title'>暂无内容</p>
-      </div>
-    </EmptyPlaceholder>
+    return (
+      <EmptyPlaceholder>
+        <div className="inner d-flex flex-column align-items-center">
+          <p className="icon">
+            <IconFont type="empty" />
+          </p>
+          <p className="title">暂无内容</p>
+        </div>
+      </EmptyPlaceholder>
+    )
   }
 
   const list = postStore.getFilteredList({
     tags,
-    columns
+    columns,
   })
 
-  return <Layout
-    sidebarContent={_renderSidebar()}
-    sidebarShow={true}
-  >
-    { list.map(_renderPost) }
-    { postStore.status !== 'done' && _renderPendingCard() }
-    { postStore.status === 'done' && list.length === 0 && _renderEmptyPlaceholder() }
-  </Layout>
+  return (
+    <Layout sidebarContent={_renderSidebar()} sidebarShow={true}>
+      {list.map(_renderPost)}
+      {postStore.status !== 'done' && _renderPendingCard()}
+      {postStore.status === 'done' && list.length === 0 && _renderEmptyPlaceholder()}
+    </Layout>
+  )
 }
 
 Posts.getInitialProps = async ({ query, mobxStore }) => {
   let { tags, ...params } = query
   tags = tags ? Array.from(tags.split('-'), id => parseInt(id)) : []
   if (typeof window === 'undefined') {
-    await Promise.all([
-      mobxStore.columnStore.fetch(),
-      mobxStore.tagStore.fetch()
-    ])
-    const columns = mobxStore.columnStore.list.filter(item => item.parent && item.parent.id === params.id).map(item => item.id).concat(params.id)
+    await Promise.all([mobxStore.columnStore.fetch(), mobxStore.tagStore.fetch()])
+    const columns = mobxStore.columnStore.list
+      .filter(item => item.parent && item.parent.id === params.id)
+      .map(item => item.id)
+      .concat(params.id)
     await mobxStore.postStore.fetch({ columns })
   }
   return {
@@ -339,8 +337,8 @@ Posts.getInitialProps = async ({ query, mobxStore }) => {
     params,
     baseLink: {
       href: `/posts?id=${params.id || ''}`,
-      as: '/posts' + (params.id ? `/${params.id}` : '')
-    }
+      as: '/posts' + (params.id ? `/${params.id}` : ''),
+    },
   }
 }
 

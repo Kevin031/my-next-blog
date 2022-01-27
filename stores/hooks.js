@@ -1,9 +1,9 @@
-let _rootStore
+let _rootStore = {}
 
-export function setRootStoreRefs (store) {
+export function setRootStoreRefs(store) {
   _rootStore = store
 }
 
-export function useStore () {
+export function useStore() {
   return _rootStore
 }

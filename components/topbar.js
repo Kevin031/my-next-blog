@@ -7,21 +7,22 @@ import ActiveLink from './active-link'
 // import LibraryBooksOutlinedIcon from '@material-ui/icons/LibraryBooksOutlined'
 import IconFont from '../components/icon-font'
 import styled from 'styled-components'
-import colors from '../ui/colors'
 import Link from 'next/link'
+import { useStore } from 'stores/hooks'
 
 const HEIGHT = 54
 
 const StyledWrapper = styled.div`
   height: ${HEIGHT}px;
+  background-color: var(--color-bg-content);
   .fixed-topbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 10;
-    border-bottom: solid 1px #ddd;
-    background-color: #fff;
+    border-bottom: solid 1px var(--color-border-secondary);
+    background-color: var(--color-bg-content);
   }
   .inner {
     display: flex;
@@ -35,7 +36,7 @@ const StyledWrapper = styled.div`
     font-weight: 600;
     a {
       position: relative;
-      color: ${colors.text};
+      color: var(--color-text-main);
       &:hover {
         text-decoration: none;
       }
@@ -45,7 +46,7 @@ const StyledWrapper = styled.div`
   }
   .links a {
     margin-left: 10px;
-    color: rgba(38, 38, 38);
+    color: var(--color-text-main);
     font-size: 20px;
     .active {
       display: none;
@@ -65,51 +66,54 @@ const rightMenu = [
   {
     title: 'Home',
     link: '/',
-    activeIcon: <IconFont type='homepage-fill' />,
-    unactiveIcon: <IconFont type='homepage' />
+    activeIcon: <IconFont type="homepage-fill" />,
+    unactiveIcon: <IconFont type="homepage" />,
   },
   {
     title: 'Posts',
     link: '/posts',
-    activeIcon: <IconFont type='paperdraft-fill' />,
-    unactiveIcon: <IconFont type='paperdraft' />
+    activeIcon: <IconFont type="paperdraft-fill" />,
+    unactiveIcon: <IconFont type="paperdraft" />,
   },
   {
     title: 'About',
     link: '/about',
-    activeIcon: <IconFont type='calendar-fill' />,
-    unactiveIcon: <IconFont type='calendar' />
-  }
+    activeIcon: <IconFont type="calendar-fill" />,
+    unactiveIcon: <IconFont type="calendar" />,
+  },
 ]
 
 export const TopBar = () => {
-  return <StyledWrapper className='topbar'>
-    <div className='fixed-topbar'>
-      <div className='container'>
-        <div className='inner'>
-          <div className='brand'>
-            <Link href='/'>
-              <a>Kevin's blog</a>
-            </Link>
-          </div>
-          <div className='links'>
-            {
-              rightMenu.map((item, index) => (
-                <ActiveLink href={item.link} activeClassName='active' key={index}>
+  const { appStore } = useStore()
+  console.log(appStore)
+  return (
+    <StyledWrapper className="topbar">
+      <div className="fixed-topbar">
+        <div className="container">
+          <div className="inner">
+            <div className="brand">
+              <Link href="/">
+                <a>Kevin's blog</a>
+              </Link>
+            </div>
+            <div className="links">
+              {rightMenu.map((item, index) => (
+                <ActiveLink href={item.link} activeClassName="active" key={index}>
                   <a alt={item.title}>
-                    <span className='active'>
-                      { item.activeIcon }
-                    </span>
-                    <span className='unactive'>
-                      { item.unactiveIcon }
-                    </span>
+                    <span className="active">{item.activeIcon}</span>
+                    <span className="unactive">{item.unactiveIcon}</span>
                   </a>
                 </ActiveLink>
-              ))
-            }
+              ))}
+              <a href="#!" onClick={() => appStore.toggleThemeMode()}>
+                <span>
+                  <IconFont type="DarkTheme" />
+                </span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </StyledWrapper>
+    </StyledWrapper>
+  )
 }

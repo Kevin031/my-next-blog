@@ -36,7 +36,7 @@ const PhotosWrapper = styled.div`
       bottom: 0;
       left: 0;
       right: 0;
-      background: rgba(0,0,0,.3);
+      background: rgba(0, 0, 0, 0.3);
       opacity: 0;
       display: flex;
       align-items: center;
@@ -69,11 +69,11 @@ const FullScreenWrapper = styled.div`
   right: 0;
   bottom: 0;
   z-index: 100;
-  transition: background .3s ease-in-out;
+  transition: background 0.3s ease-in-out;
   overflow: auto;
   .image-wrapper {
     position: absolute;
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     img {
       width: 100%;
       height: auto;
@@ -81,32 +81,27 @@ const FullScreenWrapper = styled.div`
   }
 `
 
-const Photos = ({
-  photoStore,
-  tagStore,
-  baseLink,
-  params
-}) => {
+const Photos = ({ photoStore, tagStore, baseLink, params }) => {
   const detailAnimateDuration = 30
   const defaultDetailPhotoStyle = {
     entering: {},
     entered: {},
     exiting: {},
-    exited: {}
+    exited: {},
   }
   const detailMaskStyle = {
     entering: {
-      background: 'rgba(0,0,0,0)'
+      background: 'rgba(0,0,0,0)',
     },
     entered: {
-      background: 'rgba(0,0,0,0.7)'
+      background: 'rgba(0,0,0,0.7)',
     },
     exiting: {
-      background: 'rgba(0,0,0,0.7)'
+      background: 'rgba(0,0,0,0.7)',
     },
     exited: {
-      background: 'rgba(0,0,0,0)'
-    }
+      background: 'rgba(0,0,0,0)',
+    },
   }
 
   const [showDetail, setShowDetail] = useState(false)
@@ -118,21 +113,23 @@ const Photos = ({
     _ready = true
   }, [params.id])
 
-  return <Layout>
-    <Waypoint onEnter={() => photoStore.fetch()}>
-      <PhotosWrapper>
-        {
-          photoStore.list.map((item, idx) => {
-            return <div key={item.id} className="pic-item">
-              <div className="pic-wrapper">
-                <ImagePreviewer src={item.url} />
+  return (
+    <Layout>
+      <Waypoint onEnter={() => photoStore.fetch()}>
+        <PhotosWrapper>
+          {photoStore.list.map((item, idx) => {
+            return (
+              <div key={item.id} className="pic-item">
+                <div className="pic-wrapper">
+                  <ImagePreviewer src={item.url} />
+                </div>
               </div>
-            </div>
-          })
-        }
-      </PhotosWrapper>
-    </Waypoint>
-  </Layout>
+            )
+          })}
+        </PhotosWrapper>
+      </Waypoint>
+    </Layout>
+  )
 }
 
 Photos.getInitialProps = async ({ query, mobxStore }) => {
@@ -144,8 +141,8 @@ Photos.getInitialProps = async ({ query, mobxStore }) => {
     params,
     baseLink: {
       href: `/photos?id=${params.id || ''}`,
-      as: '/photos' + (params.id ? `/${params.id}` : '')
-    }
+      as: '/photos' + (params.id ? `/${params.id}` : ''),
+    },
   }
 }
 

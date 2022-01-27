@@ -6,7 +6,8 @@
     "dev": "node server.js",
     "build": "next build",
     "start": "NODE_ENV=production node server.js",
-    "prod-start": "next start"
+    "prod-start": "next start",
+    "prettier": "prettier --write \"./**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
     "@material-ui/core": "^4.9.7",
@@ -35,6 +36,7 @@
     "@babel/plugin-proposal-decorators": "^7.8.3",
     "babel-plugin-styled-components": "^1.10.7",
     "html-loader": "^1.1.0",
-    "markdown-loader": "^5.1.0"
+    "markdown-loader": "^5.1.0",
+    "prettier": "^2.5.1"
   }
 }

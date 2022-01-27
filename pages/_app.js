@@ -1,36 +1,40 @@
 import 'core-js/features/set-immediate'
 
 import App from 'next/app'
-import { Layout } from '../components/layout'
+import { Layout } from 'components/layout'
 import React from 'react'
 import { Provider } from 'mobx-react'
-import { createStore } from '../stores'
-import { setRequestTime } from '../layer'
+import { createStore } from 'stores'
+import { setRequestTime } from 'layer'
+import GlobalTheme from 'ui/global-theme'
 
 class MyApp extends App {
-  static async getInitialProps (appContext) {
+  static async getInitialProps(appContext) {
     setRequestTime(Date.now())
     const ctx = appContext.ctx
     ctx.mobxStore = createStore()
     const appProps = await App.getInitialProps(appContext)
     return {
       ...appProps,
-      initializeMobxState: ctx.mobxStore
+      initializeMobxState: ctx.mobxStore,
     }
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     const isServer = typeof window === 'undefined'
     this.mobxStore = isServer ? props.initializeMobxState : createStore(props.initializeMobxState)
   }
 
-  render () {
+  render() {
     const { Component, pageProps } = this.props
-    return <Provider {...this.mobxStore}>
-      <Component {...pageProps} />
-    </Provider>
+    return (
+      <Provider {...this.mobxStore}>
+        <GlobalTheme />
+        <Component {...pageProps} />
+      </Provider>
+    )
   }
 }
 

@@ -5,11 +5,10 @@ import { inject } from 'mobx-react'
 import IconFont from '../components/icon-font'
 import styled from 'styled-components'
 import Card from '../ui/card'
-import colors from '../ui/colors'
 
 const Wrapper = styled.div`
   .section-title {
-    color: ${colors.secondary};
+    color: var(--color-text-secondary);
   }
   section {
     margin-bottom: 30px;
@@ -34,6 +33,7 @@ const ColumnCard = styled(Card)`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    color: var(--color-text-main);
     &:hover {
       text-decoration: none;
     }
@@ -43,41 +43,43 @@ const ColumnCard = styled(Card)`
   }
 `
 
-const Home = inject('columnStore', 'appStore')(({ columnStore, appStore }) => {
-
+const Home = inject(
+  'columnStore',
+  'appStore',
+)(({ columnStore, appStore }) => {
   const getLink = column => {
     if (column.field_key === 'photo') {
       return {
         as: `/photos/${column.id}`,
-        href: `/photos?id=${column.id}`
+        href: `/photos?id=${column.id}`,
       }
     }
 
     return {
       as: `/posts/${column.id}`,
-      href: `/posts?id=${column.id}`
+      href: `/posts?id=${column.id}`,
     }
   }
 
-  return <Layout>
-    <Head>
-      <title>Kevin's blog</title>
-    </Head>
-    <Wrapper>
-      <section>
-        <h1>Welcome!</h1>
-        <p>这是一个以技术帖为主的个人博客</p>
-      </section>
-      <section>
-        <h6 className='section-title'>专栏</h6>
-        <div className='row'>
-          {
-            columnStore.rootList.map(column => (
-              <div className='col-md-4' key={column.id}>
+  return (
+    <Layout>
+      <Head>
+        <title>Kevin's blog</title>
+      </Head>
+      <Wrapper>
+        <section>
+          <h1>Welcome!</h1>
+          <p>这是一个以技术帖为主的个人博客</p>
+        </section>
+        <section>
+          <h6 className="section-title">专栏</h6>
+          <div className="row">
+            {columnStore.rootList.map(column => (
+              <div className="col-md-4" key={column.id}>
                 <ColumnCard>
                   <Link href={getLink(column).href} as={getLink(column).as}>
                     <a>
-                      <div className='icon'>
+                      <div className="icon">
                         <IconFont type={column.field_key} />
                       </div>
                       <p>{column.name}</p>
@@ -85,31 +87,28 @@ const Home = inject('columnStore', 'appStore')(({ columnStore, appStore }) => {
                   </Link>
                 </ColumnCard>
               </div>
-            ))
-          }
-        </div>
-      </section>
-      <section>
-        <div className="row">
-          <div className="col-md-6">
-            <h6 className='section-title'>更新日志</h6>
-            <ColumnCard>
-              <div className="releases" dangerouslySetInnerHTML={{ __html: appStore.releases }} />
-            </ColumnCard>
+            ))}
           </div>
-        </div>
-      </section>
-    </Wrapper>
-  </Layout>
+        </section>
+        <section>
+          <div className="row">
+            <div className="col-md-6">
+              <h6 className="section-title">更新日志</h6>
+              <ColumnCard>
+                <div className="releases" dangerouslySetInnerHTML={{ __html: appStore.releases }} />
+              </ColumnCard>
+            </div>
+          </div>
+        </section>
+      </Wrapper>
+    </Layout>
+  )
 })
 
 Home.getInitialProps = async ({ query, mobxStore }) => {
   await mobxStore.appStore.init()
   if (typeof window === 'undefined' || mobxStore.columnStore.list) {
-    await Promise.all([
-      mobxStore.columnStore.fetch(),
-      mobxStore.tagStore.fetch()
-    ])
+    await Promise.all([mobxStore.columnStore.fetch(), mobxStore.tagStore.fetch()])
   }
   return { ok: true }
 }

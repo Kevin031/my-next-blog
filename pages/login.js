@@ -9,23 +9,23 @@ const LoginWrapper = styled.div`
   }
 `
 
-const Login = ({
-  userStore
-}) => {
-  return <Layout>
-    <LoginWrapper>
-      <h2>Login</h2>
-      <form className="form">
-        <div className="form-item">
-          <input type="text" placeholder="username" />
-        </div>
-        <div className="form-item">
-          <input type="password" placeholder="password" />
-        </div>
-      </form>
-      <button>Submit</button>
-    </LoginWrapper>
-  </Layout>
+const Login = ({ userStore }) => {
+  return (
+    <Layout>
+      <LoginWrapper>
+        <h2>Login</h2>
+        <form className="form">
+          <div className="form-item">
+            <input type="text" placeholder="username" />
+          </div>
+          <div className="form-item">
+            <input type="password" placeholder="password" />
+          </div>
+        </form>
+        <button>Submit</button>
+      </LoginWrapper>
+    </Layout>
+  )
 }
 
 export default Login

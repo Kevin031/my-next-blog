@@ -6,9 +6,7 @@ const StyledWrapper = styled.div`
 `
 
 const MyInfoCard = () => {
-  return <StyledWrapper className='border mt-5'>
-    personal info
-  </StyledWrapper>
+  return <StyledWrapper className="border mt-5">personal info</StyledWrapper>
 }
 
 export default MyInfoCard

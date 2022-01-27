@@ -9,7 +9,7 @@ const config = {
   columnStore: ColumnStore,
   tagStore: TagStore,
   appStore: AppStore,
-  photoStore: PhotoStore
+  photoStore: PhotoStore,
 }
 
 export default config

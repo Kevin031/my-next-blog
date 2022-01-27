@@ -7,7 +7,7 @@ const isServer = typeof window === 'undefined'
 useStaticRendering(isServer)
 
 export class Store {
-  constructor (initialState) {
+  constructor(initialState) {
     for (const k in config) {
       if (config.hasOwnProperty(k)) {
         this[k] = config[k].create(initialState[k] || {})
@@ -18,7 +18,7 @@ export class Store {
 
 let store = null
 
-export function createStore (initialState = {}) {
+export function createStore(initialState = {}) {
   if (isServer) {
     return new Store(initialState)
   }

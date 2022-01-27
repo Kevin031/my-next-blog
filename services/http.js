@@ -8,7 +8,7 @@ axios.defaults.headers.common['Accept'] = 'application/json'
 
 const get = (url, config) => axios.get(url, config).then(res => res.data)
 
-function parseQuery (str) {
+function parseQuery(str) {
   let params = {}
   if (query) {
     if (query.split('?').length === 0) {
@@ -22,7 +22,7 @@ function parseQuery (str) {
   return params
 }
 
-function buildQuery (params) {
+function buildQuery(params) {
   let q = []
   for (let k in params) {
     // console.log(k, params[k])
@@ -35,5 +35,5 @@ export default {
   baseURL,
   parseQuery,
   buildQuery,
-  get
+  get,
 }
