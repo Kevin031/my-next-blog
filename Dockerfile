@@ -1,5 +1,5 @@
 # Install dependencies only when needed
-FROM node:alpine AS deps
+FROM node:14-alpine AS deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
 WORKDIR /kevinlau-cn
@@ -8,7 +8,7 @@ RUN yarn config set registry https://registry.npm.taobao.org/
 RUN yarn install --frozen-lockfile
 
 # Rebuild the source code only when needed
-FROM node:alpine AS builder
+FROM node:14-alpine AS builder
 WORKDIR /kevinlau-cn
 COPY . .
 COPY --from=deps /kevinlau-cn/node_modules ./node_modules
@@ -16,7 +16,7 @@ RUN npx browserslist --update-db
 RUN yarn build
 
 # Production image, copy all the files and run next
-FROM node:alpine AS runner
+FROM node:14-alpine AS runner
 WORKDIR /kevinlau-cn
 
 ENV NODE_ENV production
