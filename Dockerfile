@@ -12,6 +12,7 @@ FROM node:alpine AS builder
 WORKDIR /kevinlau-cn
 COPY . .
 COPY --from=deps /kevinlau-cn/node_modules ./node_modules
+RUN npx browserslist --update-db
 RUN yarn build
 
 # Production image, copy all the files and run next
