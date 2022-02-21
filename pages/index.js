@@ -61,6 +61,15 @@ const Home = inject(
     }
   }
 
+  const iconMap = {
+    '前端': 'frontend',
+    '后端': 'backend',
+    '后台': 'backend',
+    '杂文': 'write',
+    '摄影': 'photo',
+    '数据库': 'technology'
+  }
+
   return (
     <Layout>
       <Head>
@@ -80,7 +89,7 @@ const Home = inject(
                   <Link href={getLink(column).href} as={getLink(column).as}>
                     <a>
                       <div className="icon">
-                        <IconFont type={column.field_key} />
+                        <IconFont type={iconMap[column.name]} />
                       </div>
                       <p>{column.name}</p>
                     </a>

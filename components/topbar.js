@@ -85,7 +85,6 @@ const rightMenu = [
 
 export const TopBar = () => {
   const { appStore } = useStore()
-  console.log(appStore)
   return (
     <StyledWrapper className="topbar">
       <div className="fixed-topbar">

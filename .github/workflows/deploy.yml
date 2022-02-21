@@ -35,13 +35,13 @@ jobs:
       - name: Execute SSH commmands on remote server
         uses: JimCronqvist/action-ssh@master
         with:
-          hosts: '122.51.210.138'
+          hosts: ${{ secrets.HOST }}
           privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
           debug: true
           command: |
             docker ps -a
             docker rm -f kevinlau-cn
             docker pull kevin031/blog-nextjs
-            docker run --name kevinlau-cn --restart unless-stopped -p 20350:3000 -d kevin031/blog-nextjs
+            docker run --name kevinlau-cn --restart unless-stopped -p 20229:3000 -d kevin031/blog-nextjs
             
             

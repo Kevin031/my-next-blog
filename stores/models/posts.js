@@ -9,12 +9,12 @@ const PostModel = types
     id: types.identifier,
     nid: types.number,
     title: types.string,
-    body_format: types.string,
+    // body_format: types.string,
     tags: types.array(types.frozen({})),
     created: types.string,
     changed: types.string,
     body: types.maybeNull(types.string),
-    column: types.string,
+    column: types.maybeNull(types.string),
   })
   .views(self => ({
     get abstract() {
@@ -64,9 +64,11 @@ export const PostStore = types
       const limit = 10
       self.status = 'loading'
       const res = yield http.get(
-        `api/articles?page=${self.page}&limit=${limit}&columns=${columns ? columns.join(',') : ''}`,
+        `api/v2/articles?page=${self.page}&limit=${limit}&columns=${columns ? columns.join(',') : ''}`,
       )
       res.list.forEach(item => {
+        item.id = item.id.toString()
+        item.column = item.column ? item.column.toString() : null
         self.__list.put(item)
       })
       self.page++

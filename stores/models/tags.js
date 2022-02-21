@@ -3,7 +3,7 @@ import http from '../../services/http'
 
 const TagModel = types.model('Tag').props({
   id: types.identifier,
-  tid: types.number,
+  // tid: types.number,
   name: types.string,
   parent: types.maybeNull(types.reference(types.late(() => TagModel))),
 })
@@ -15,13 +15,14 @@ export const TagStore = types
   })
   .actions(self => ({
     fetch: flow(function* () {
-      const list = yield http.get('/api/tags')
+      const res = yield http.get('/api/v2/tags')
+      const list = res.list
       list.forEach(item => {
         self.__list.put(
           TagModel.create({
-            id: item.id,
-            tid: item.tid,
-            name: item.name,
+            id: item.id.toString(),
+            // tid: item.tid,
+            name: item.title,
           }),
         )
       })

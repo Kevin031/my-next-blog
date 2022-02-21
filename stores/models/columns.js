@@ -5,7 +5,7 @@ const ColumnModel = types
   .model('Column')
   .props({
     id: types.identifier,
-    tid: types.number,
+    // tid: types.number,
     name: types.string,
     field_key: types.maybeNull(types.string),
     parent: types.maybeNull(types.reference(types.late(() => ColumnModel))),
@@ -26,14 +26,15 @@ export const ColumnStore = types
   })
   .actions(self => ({
     fetch: flow(function* () {
-      const list = yield http.get('/api/columns')
+      const res = yield http.get('/api/v2/columns')
+      const list = res.list
       list.forEach(item => {
         self.__list.put(
           ColumnModel.create({
-            id: item.id,
-            tid: item.tid,
-            name: item.name,
-            field_key: item.field_key,
+            id: item.id.toString(),
+            // tid: item.tid,
+            name: item.title,
+            // field_key: item.field_key,
           }),
         )
       })

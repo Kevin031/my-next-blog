@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // const baseURL = 'http://localhost:20228/'
-const baseURL = 'http://api.data.kevinlau.cn/'
+const baseURL = 'http://blog-server.kevinlau.cn/'
 
 axios.defaults.baseURL = baseURL
 axios.defaults.headers.common['Accept'] = 'application/json'

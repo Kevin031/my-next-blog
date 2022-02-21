@@ -25,6 +25,12 @@ class MyApp extends App {
 
     const isServer = typeof window === 'undefined'
     this.mobxStore = isServer ? props.initializeMobxState : createStore(props.initializeMobxState)
+
+    // if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    //   setThemeName("dark")
+    // } else {
+    //   setThemeName("light")
+    // }
   }
 
   render() {
