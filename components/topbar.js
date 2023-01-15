@@ -92,7 +92,7 @@ export const TopBar = () => {
           <div className="inner">
             <div className="brand">
               <Link href="/">
-                <a>Kevin's blog</a>
+                <a>个人文章云笔记</a>
               </Link>
             </div>
             <div className="links">

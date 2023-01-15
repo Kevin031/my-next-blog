@@ -44,7 +44,7 @@ export const Layout = ({ children, sidebarShow = false, sidebarContent }) => {
   return (
     <StyledWrapper>
       <Head>
-        <title>Kevin's blog</title>
+        <title>个人文章云笔记</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link type="image/x-icon" rel="shortcut icon" href="/static/favicon.ico" />
         <link

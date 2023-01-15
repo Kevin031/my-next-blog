@@ -73,7 +73,7 @@ const Home = inject(
   return (
     <Layout>
       <Head>
-        <title>Kevin's blog</title>
+        <title>个人文章云笔记</title>
       </Head>
       <Wrapper>
         <section>
