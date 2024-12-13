@@ -3420,9 +3420,9 @@ markdown-loader@^5.1.0:
     loader-utils "^1.2.3"
     marked "^0.7.0"
 
-markdown-to-jsx@^6.11.0:
-  version "6.11.0"
-  resolved "https://registry.npm.taobao.org/markdown-to-jsx/download/markdown-to-jsx-6.11.0.tgz#a2e3f2bc781c3402d8bb0f8e0a12a186474623b0"
+markdown-to-jsx@^6.11.4:
+  version "6.11.4"
+  resolved "https://registry.yarnpkg.com/markdown-to-jsx/-/markdown-to-jsx-6.11.4.tgz#b4528b1ab668aef7fe61c1535c27e837819392c5"
   dependencies:
     prop-types "^15.6.2"
     unquote "^1.1.0"
