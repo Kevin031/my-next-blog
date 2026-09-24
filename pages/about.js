@@ -12,7 +12,7 @@ const About = () => {
   return (
     <Layout>
       <Head>
-        <title>关于 | KEVINLAUA</title>
+        <title>个人文章云笔记</title>
       </Head>
       <Wrapper>
         <h6>关于</h6>
